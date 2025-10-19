@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -24,6 +25,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Search
@@ -50,6 +52,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.musicapp.Components.AlbumCard
+import com.example.musicapp.Components.RecentlyPlayedCard
 import com.example.musicapp.ui.theme.Rosa1
 import com.example.musicapp.ui.theme.Rosa2
 import com.example.musicapp.ui.theme.Rosa3
@@ -62,7 +66,6 @@ import com.example.musicapp.ui.theme.amarillo
 
 import com.example.musicapp.ui.theme.naranja
 import com.example.musicapp.ui.theme.orange
-
 
 
 @Composable
@@ -84,6 +87,7 @@ fun HomeScreen() {
                 )
             )
     ) {
+
         // Encabezado
 
         // Contenedor centrado
@@ -109,7 +113,8 @@ fun HomeScreen() {
                         )
                     ),
                     shape = RoundedCornerShape(24.dp)
-                )
+                ),
+            contentAlignment = Alignment.BottomCenter
         ) {
             Column() {
                 Row(
@@ -181,118 +186,7 @@ fun HomeScreen() {
         }
         LazyRow() {
             item {
-                Box(
-                    modifier = Modifier
-                        .padding(20.dp)
-                        .width(190.dp)
-                        .height(180.dp)
-                        .align(Alignment.CenterHorizontally)
-
-                        .background(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    Rosa1.copy(alpha = 0.1f),
-
-                                    Rosa2.copy(alpha = 0.3f),
-
-
-                                    Rosa3.copy(alpha = 0.6f)
-                                )
-                            ),
-                            shape = RoundedCornerShape(24.dp)
-                        )
-                ) {
-                    Box(
-                        modifier = Modifier
-
-                            .width(190.dp)
-                            .height(180.dp)
-
-
-                            .background(
-                                brush = Brush.verticalGradient(
-                                    colors = listOf(
-                                        Rosa1.copy(alpha = 0.1f),
-
-                                        Rosa2.copy(alpha = 0.3f),
-
-
-                                        Rosa3.copy(alpha = 0.6f)
-                                    )
-                                ),
-                                shape = RoundedCornerShape(24.dp)
-                            )
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .align(Alignment.BottomCenter)
-                                .padding(12.dp)
-                                .width(190.dp)
-                                .height(80.dp)
-
-
-                                .background(
-                                    brush = Brush.verticalGradient(
-                                        colors = listOf(
-                                            RosaClaro.copy(alpha = 0.2f),
-
-                                            Rosa2.copy(alpha = 0.3f),
-
-
-                                            Rosa3.copy(alpha = 0.6f)
-                                        )
-                                    ),
-                                    shape = RoundedCornerShape(24.dp)
-                                )
-                        ) {
-                            Row(
-
-                            ) {
-                                Column(modifier = Modifier.weight(1f)) {
-                                    Text(
-                                        text = "Tales of Ithiria",
-                                        color = amarillo.copy(alpha = 0.9f),
-                                        fontSize = 16.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        modifier = Modifier
-                                            .padding(start = 12.dp, top = 12.dp)
-
-                                    )
-                                    Text(
-                                        text = "Haggard",
-                                        color = amarillo.copy(alpha = 0.9f),
-                                        fontSize = 13.sp,
-                                        fontWeight = FontWeight.W200,
-                                        modifier = Modifier
-                                            .padding(top = 6.dp, start = 12.dp)
-
-                                    )
-                                }
-                                Box(
-                                    modifier = Modifier
-                                        .padding(top= 29.dp, end= 9.dp
-                                        )
-                                        .size(33.dp) // tamaño del círculo
-
-                                        .background(color = Color(0xFFEAE7E3), shape = CircleShape) // color del círculo
-                                        .align(Alignment.CenterVertically), // centra el box en el Row
-                                    contentAlignment = Alignment.Center // centra el icon dentro del box
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.PlayArrow, // ícono de play
-                                        contentDescription = "play",
-                                        tint = Rosa2.copy(alpha=0.7f) // color del play
-                                    )
-                                }
-
-
-                            }
-
-                        }
-
-                    }
-
-                }
+                AlbumCard()
             }
         }
         Row(
@@ -322,8 +216,7 @@ fun HomeScreen() {
         }
         Box(
             modifier = Modifier
-                .fillMaxSize()
-                , contentAlignment = Alignment.BottomEnd
+                .fillMaxSize(), contentAlignment = Alignment.BottomEnd
         ) {
             LazyColumn(
                 modifier = Modifier
@@ -332,40 +225,14 @@ fun HomeScreen() {
 
             ) {
                 item {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(130.dp)
-                            .padding(18.dp)
-                            .background(
-                                brush = Brush.verticalGradient(
-                                    colors = listOf(
-
-                                        RosaClaro.copy(alpha = 0.8f),
-
-                                        amarillo.copy(alpha = 0.4f),
-
-
-                                        Rosa2.copy(alpha = 0.35f)
-                                    )
-                                ),
-                                shape = RoundedCornerShape(24.dp)
-                            )
-                    ) {
-                        Row(){
-                            Box(
-
-                            ){
-
-                            }
-                        }
-
-
-
-                    }
+                    RecentlyPlayedCard()
                 }
 
+
             }
+
+
+
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -391,8 +258,6 @@ fun HomeScreen() {
         }
     }
 }
-
-
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
