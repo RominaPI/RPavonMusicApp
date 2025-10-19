@@ -53,6 +53,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.musicapp.Components.AlbumCard
+import com.example.musicapp.Components.Header
 import com.example.musicapp.Components.RecentlyPlayedCard
 import com.example.musicapp.ui.theme.Rosa1
 import com.example.musicapp.ui.theme.Rosa2
@@ -93,72 +94,27 @@ fun HomeScreen() {
         // Contenedor centrado
 
         // Box decorativa centrada
-        Box(
+    Header(
+        mod= Modifier
+            .padding(top = 50.dp)
+            .width(350.dp)
+            .height(160.dp)
+            .align(Alignment.CenterHorizontally)
 
-            modifier = Modifier
-                .padding(top = 50.dp)
-                .width(350.dp)
-                .height(160.dp)
-                .align(Alignment.CenterHorizontally)
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Rosa1.copy(alpha = 0.2f),
 
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Rosa1.copy(alpha = 0.2f),
-
-                            Rosa2.copy(alpha = 0.4f),
+                        Rosa2.copy(alpha = 0.4f),
 
 
-                            Rosa3.copy(alpha = 0.9f)
-                        )
-                    ),
-                    shape = RoundedCornerShape(24.dp)
+                        Rosa3.copy(alpha = 0.9f)
+                    )
                 ),
-            contentAlignment = Alignment.BottomCenter
-        ) {
-            Column() {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Menu,
-                        contentDescription = "Menú",
-                        tint = Color.White,
-                        modifier = Modifier.size(32.dp)
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-
-
-
-                    Icon(
-                        imageVector = Icons.Default.Search,
-                        contentDescription = "bell",
-                        tint = Color.White,
-                        modifier = Modifier.size(32.dp)
-                    )
-                }
-
-                Text(
-                    text = "Good Morning",
-                    color = Color.White,
-                    fontSize = 19.sp,
-                    fontWeight = FontWeight.W300,
-                    modifier = Modifier
-                        .padding(start = 11.dp)
-                )
-                Text(
-                    text = "Romina Pavón",
-                    color = Color.White,
-                    fontSize = 29.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(11.dp)
-                )
-            }
-        }
+                shape = RoundedCornerShape(24.dp)
+            )
+    )
         Row(
             verticalAlignment = Alignment.CenterVertically
 

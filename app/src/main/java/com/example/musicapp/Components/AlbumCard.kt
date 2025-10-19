@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.musicapp.models.Album
 import com.example.musicapp.ui.theme.Rosa1
 import com.example.musicapp.ui.theme.Rosa2
 import com.example.musicapp.ui.theme.Rosa3
@@ -29,7 +30,7 @@ import com.example.musicapp.ui.theme.RosaClaro
 import com.example.musicapp.ui.theme.amarillo
 
 @Composable
-fun AlbumCard() {
+fun AlbumCard(album: Album) {
     // Implementation will go here
     Box(
         modifier = Modifier
@@ -99,7 +100,7 @@ fun AlbumCard() {
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Tales of Ithiria",
+                            text = album.title,
                             color = amarillo.copy(alpha = 0.9f),
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
@@ -108,7 +109,7 @@ fun AlbumCard() {
 
                         )
                         Text(
-                            text = "Haggard",
+                            text = album.artist,
                             color = amarillo.copy(alpha = 0.9f),
                             fontSize = 13.sp,
                             fontWeight = FontWeight.W200,
