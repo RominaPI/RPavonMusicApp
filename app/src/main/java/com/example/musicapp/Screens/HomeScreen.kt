@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -52,9 +53,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import coil3.compose.AsyncImage
 import com.example.musicapp.Components.AlbumCard
 import com.example.musicapp.Components.Header
 import com.example.musicapp.Components.RecentlyPlayedCard
+import com.example.musicapp.models.albums
 import com.example.musicapp.ui.theme.Rosa1
 import com.example.musicapp.ui.theme.Rosa2
 import com.example.musicapp.ui.theme.Rosa3
@@ -67,10 +73,13 @@ import com.example.musicapp.ui.theme.amarillo
 
 import com.example.musicapp.ui.theme.naranja
 import com.example.musicapp.ui.theme.orange
+import com.example.musicapp.viewmodel.HomeScreenViewModel
+import com.example.musicapp.viewmodel.SharedViewModel
 
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(nav: NavController, padding: PaddingValues, sharedViewModel: SharedViewModel) {
+val vm: HomeScreenViewModel = viewModel()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -141,8 +150,8 @@ fun HomeScreen() {
             )
         }
         LazyRow() {
-            item {
-                AlbumCard()
+            items(albums) { album ->
+                AlbumCard(album)
             }
         }
         Row(
@@ -180,16 +189,17 @@ fun HomeScreen() {
 
 
             ) {
-                item {
-                    RecentlyPlayedCard()
+                items(albums) { album ->
+                    RecentlyPlayedCard(album)
                 }
+
 
 
             }
 
 
 
-            Box(
+            Row (
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(120.dp)
@@ -198,11 +208,8 @@ fun HomeScreen() {
                     .background(
                         brush = Brush.verticalGradient(
                             colors = listOf(
-                                Rosa1.copy(alpha = 0.2f),
-
-                                Rosa2.copy(alpha = 0.3f),
-
-
+                                Rosa1.copy(alpha = 0.4f),
+                                Rosa2.copy(alpha = 0.6f),
                                 Rosa3.copy(alpha = 0.8f)
                             ),
                             startY = 100f
@@ -210,13 +217,72 @@ fun HomeScreen() {
                         shape = RoundedCornerShape(25.dp)
                     )
 
-            )
+            ){
+                val selectedAlbumId= sharedViewModel.selectedAlbumId
+                val selectedAlbum = remember(selectedAlbumId){
+                    vm.albums.firstOrNull{ it.id == selectedAlbumId }
+                }
+
+                AsyncImage(
+                    model= selectedAlbum?.image ?: " ",
+                    contentDescription = selectedAlbum?.title,
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .width(105.dp)
+                        .padding(16.dp)
+                        .clip(RoundedCornerShape(17.dp))
+                        .background(Color.White),
+                    contentScale = ContentScale.Crop
+
+
+                )
+                Column(
+                    modifier = Modifier
+                        .padding(top = 16.dp, start = 4.dp)
+                        .weight(1f)
+                )
+                {
+                    Text(
+                        text = selectedAlbum?.title ?: "",
+                        color = Rosa2.copy(alpha = 0.9f),
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+
+                        )
+                    Text(
+                        text = "${selectedAlbum?.artist} · popular song",
+                        color = Rosa2.copy(alpha = 0.9f),
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.W200,
+
+
+                        )
+                }
+                Box(
+                    modifier = Modifier
+                        .padding(top= 29.dp, end= 9.dp
+                        )
+                        .size(33.dp) // tamaño del círculo
+
+                        .background(color = Color(0xFFEAE7E3), shape = CircleShape) // color del círculo
+                        .align(Alignment.CenterVertically), // centra el box en el Row
+                    contentAlignment = Alignment.Center // centra el icon dentro del box
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.PlayArrow, // ícono de play
+                        contentDescription = "play",
+                        tint = Rosa2.copy(alpha=0.7f) // color del play
+                    )
+                }
+            }
         }
     }
 }
+
+val svm = SharedViewModel()
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+    HomeScreen(rememberNavController(), padding = PaddingValues(0.dp), svm)
 }
 
