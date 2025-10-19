@@ -1,6 +1,7 @@
 package com.example.musicapp.Components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,7 +31,7 @@ import com.example.musicapp.ui.theme.RosaClaro
 import com.example.musicapp.ui.theme.amarillo
 
 @Composable
-fun RecentlyPlayedCard(album: Album) {
+fun RecentlyPlayedCard(album: Album, onClick: ()-> Unit) {
     // Implementation will go here
     Box(
         modifier = Modifier
@@ -51,6 +52,7 @@ fun RecentlyPlayedCard(album: Album) {
                 ),
                 shape = RoundedCornerShape(24.dp)
             )
+            .clickable(enabled = true, onClick = onClick)
     ) {
         Row(
 
